@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rajveer Airy</title>
+<meta name="description" content="Rajveer Airy is an AI creator, video editor, web designer and writer from Raipur. BBA graduate. Barça till death.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3ffc9; --paper:#fffdf3; --ink:#0d0d0d; --muted:#4a4a4a;
+  --lime:#c6ff3d; --pink:#ff5fa2; --blue:#4d7cff; --orange:#ff8a1f; --violet:#9b6bff;
+  --barca-b:#004d98; --barca-r:#a50044; --gold:#edbb00;
+  --shadow:6px 6px 0 var(--ink); --shadow-sm:3px 3px 0 var(--ink);
+  --grid:rgba(13,13,13,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0f0f0f;--paper:#1a1a1a;--ink:#f4f4ec;--muted:#b9b9ae;--grid:rgba(255,255,255,.05)}
+}
+:root[data-theme="dark"]{--bg:#0f0f0f;--paper:#1a1a1a;--ink:#f4f4ec;--muted:#b9b9ae;--grid:rgba(255,255,255,.05)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.55;overflow-x:hidden}
+body.loading{overflow:hidden}
+a{color:inherit}
+::selection{background:var(--lime);color:#0d0d0d}
+.mono{font-family:'Space Mono',monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.box{background:var(--paper);border:3px solid var(--ink);box-shadow:var(--shadow);border-radius:14px}
+/* 3D reveal */
+.rv{opacity:0;transform:perspective(900px) translateY(28px) rotateX(10deg);transform-origin:50% 100%;transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+/* 3D tilt (mouse) */
+.tilt{transform-style:preserve-3d;will-change:transform}
+.tilt.tilting{transition:none!important}
+.tilt .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.45),transparent 55%);opacity:0;transition:opacity .2s;z-index:5}
+.tilt.tilting .glare{opacity:1}
+/* hero name 3D flip-in */
+h1.name .ch{animation:flipIn .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*45ms + .9s);transform-origin:50% 100%}
+@keyframes flipIn{from{opacity:0;transform:rotateX(-90deg) translateY(20px)}to{opacity:1;transform:none}}
+/* hero photo ring */
+.photo-wrap{perspective:900px}
+.photo-frame::before{content:"";position:absolute;inset:-14px;border-radius:50%;background:conic-gradient(from 0deg,var(--pink),var(--blue),var(--lime),var(--orange),var(--violet),var(--pink));animation:spin 6s linear infinite;z-index:-1;filter:blur(2px);opacity:1}
+.photo-frame img{border-radius:50%;position:relative;z-index:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* skill cube */
+.cube-box{display:flex;align-items:center;gap:22px;padding:18px 20px;min-height:120px}
+.cube-scene{width:64px;height:64px;perspective:500px;flex:none;margin-left:8px}
+.cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:cubeSpin 9s linear infinite}
+.cube i{position:absolute;inset:0;display:grid;place-items:center;font-size:32px;font-style:normal;border:3px solid #0d0d0d;border-radius:12px;backface-visibility:visible}
+.cube i:nth-child(1){background:var(--lime);transform:rotateY(0deg) translateZ(32px)}
+.cube i:nth-child(2){background:var(--pink);transform:rotateY(90deg) translateZ(32px)}
+.cube i:nth-child(3){background:var(--blue);transform:rotateY(180deg) translateZ(32px)}
+.cube i:nth-child(4){background:var(--orange);transform:rotateY(-90deg) translateZ(32px)}
+.cube i:nth-child(5){background:var(--violet);transform:rotateX(90deg) translateZ(32px)}
+.cube i:nth-child(6){background:var(--gold);transform:rotateX(-90deg) translateZ(32px)}
+@keyframes cubeSpin{from{transform:rotateX(-20deg) rotateY(0)}to{transform:rotateX(-20deg) rotateY(360deg)}}
+/* floating 3D emojis in hero */
+.floaters{position:absolute;inset:0;pointer-events:none;overflow:hidden;perspective:600px}
+.floaters span{position:absolute;font-size:28px;opacity:.18;animation:float3d var(--d,9s) ease-in-out infinite;animation-delay:var(--dl,0s);transform-style:preserve-3d}
+@keyframes float3d{0%,100%{transform:translateY(0) rotateY(0) rotateX(0)}50%{transform:translateY(-26px) rotateY(180deg) rotateX(25deg)}}
+/* section heading 3D swing */
+.sec-head h2{transform-origin:0 100%}
+.sec-head.in h2{animation:swing .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes swing{from{transform:perspective(600px) rotateY(-40deg);opacity:0}to{transform:none;opacity:1}}
+/* messi 10 wobble */
+.messi .ten b{animation:wobble 4s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes wobble{0%,100%{transform:perspective(500px) rotateY(-18deg)}50%{transform:perspective(500px) rotateY(18deg)}}
+.tag{display:inline-block;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--ink);border-radius:999px;padding:3px 10px;background:var(--paper);color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-weight:700;font-size:14px;text-decoration:none;border:3px solid var(--ink);border-radius:10px;padding:12px 18px;box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;cursor:pointer;background:var(--paper);color:var(--ink)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.btn.dark{background:#0d0d0d;color:#c6ff3d}
+.lime{background:var(--lime)!important;color:#0d0d0d!important}
+.pink{background:var(--pink)!important;color:#0d0d0d!important}
+.blue{background:var(--blue)!important;color:#fff!important}
+.orange{background:var(--orange)!important;color:#0d0d0d!important}
+.violet{background:var(--violet)!important;color:#fff!important}
+.flag{display:inline-block;width:26px;height:18px;vertical-align:-2px;border:2px solid #0d0d0d;border-radius:3px;background:linear-gradient(#ff9933 33.3%,#fff 33.3% 66.6%,#138808 66.6%)}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:200;background:#0d0d0d;color:#c6ff3d;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;transition:transform .8s cubic-bezier(.8,0,.2,1)}
+#loader.done{transform:translateY(-100%)}
+#loader .ln{font-family:'Space Mono',monospace;font-size:13px;color:#f4f4ec;opacity:.7}
+#loader .pct{font-family:'Archivo Black',sans-serif;font-size:clamp(90px,22vw,260px);line-height:.85}
+#loader .bar{height:6px;background:#222;margin-top:18px;border-radius:9px;overflow:hidden}
+#loader .bar i{display:block;height:100%;width:0;background:#c6ff3d}
+
+/* CURSOR + PROGRESS */
+.cursor{position:fixed;left:0;top:0;width:34px;height:34px;border:2px solid #fff;border-radius:50%;pointer-events:none;z-index:150;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;display:none}
+.cursor.big{width:70px;height:70px;background:#fff}
+@media (pointer:fine){.cursor{display:block}}
+.progress{position:fixed;left:0;top:0;height:5px;background:linear-gradient(90deg,var(--lime),var(--pink),var(--blue));z-index:120;width:0}
+
+/* NAV */
+nav{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 12px);z-index:50;margin:12px auto 0}
+nav .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px}
+.logo{font-family:'Archivo Black',sans-serif;font-size:20px;text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo span{background:var(--lime);color:#0d0d0d;border:2px solid var(--ink);border-radius:8px;padding:0 8px}
+.links{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.links a{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-decoration:none;border:2px solid var(--ink);border-radius:8px;padding:6px 9px;background:var(--paper);transition:background .15s}
+.links a:hover{background:var(--lime);color:#0d0d0d}
+.theme{width:38px;height:38px;border:2px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink);font-size:16px;cursor:pointer;box-shadow:var(--shadow-sm);flex:none}
+.menu-btn{display:none}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:24px;margin-top:28px}
+.hero-main{padding:34px 32px;position:relative;overflow:hidden;container-type:inline-size}
+.stickers{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.sticker{display:inline-block;font-family:'Archivo Black',sans-serif;font-size:12px;color:#0d0d0d;border:3px solid var(--ink);border-radius:999px;padding:6px 12px;box-shadow:var(--shadow-sm)}
+.sticker:nth-child(1){transform:rotate(-3deg);background:var(--pink)}
+.sticker:nth-child(2){transform:rotate(2deg);background:var(--lime)}
+.sticker:nth-child(3){transform:rotate(-1deg);background:linear-gradient(90deg,var(--barca-b) 50%,var(--barca-r) 50%);color:#fff}
+.kicker{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:28px;height:3px;background:var(--ink);flex:none}
+h1.name{font-family:'Archivo Black',sans-serif;font-size:min(17.5cqi,128px);line-height:.88;letter-spacing:-.02em;margin:16px 0 10px;text-transform:uppercase}
+h1.name .ch{display:inline-block;transition:transform .2s}
+h1.name .ch:hover{transform:translateY(-8px) rotate(-6deg);color:var(--pink)}
+h1.name .l2{display:block;color:var(--lime);-webkit-text-stroke:3px var(--ink);text-shadow:6px 6px 0 var(--ink)}
+.roles{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.typer{display:inline-flex;align-items:center;gap:10px;margin-top:18px;background:#0d0d0d;color:#f4f4ec;border-radius:10px;padding:12px 16px;font-family:'Space Mono',monospace;font-size:15px;max-width:100%;border:3px solid var(--ink)}
+.typer b{color:#c6ff3d;font-weight:400}
+.caret{width:9px;height:18px;background:#c6ff3d;animation:blink 1s steps(1) infinite;flex:none}
+@keyframes blink{50%{opacity:0}}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.hero-photo{position:relative;padding:22px;display:flex;flex-direction:column;gap:16px;background:var(--lime);color:#0d0d0d}
+.photo-frame{position:relative;aspect-ratio:1;border:3px solid #0d0d0d;border-radius:50%;overflow:hidden;background:#0d0d0d;box-shadow:8px 8px 0 #0d0d0d;max-width:380px;width:100%;margin:0 auto}
+.photo-frame img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.04)}
+.photo-wrap{position:relative;max-width:380px;width:100%;margin:0 auto}
+.orbit{position:absolute;inset:-8px;pointer-events:none}
+.orb{position:absolute;width:62px;height:62px;display:grid;place-items:center;font-size:30px;background:#fff;border:3px solid #0d0d0d;border-radius:50%;box-shadow:var(--shadow-sm);pointer-events:auto;cursor:pointer;animation:bob 3s ease-in-out infinite}
+.orb:nth-child(1){right:0;top:4%}
+.orb:nth-child(2){left:0;top:44%;animation-delay:.6s;background:var(--pink)}
+.orb:nth-child(3){right:2%;bottom:2%;animation-delay:1.2s;background:#0d0d0d;color:#c6ff3d;font-size:14px;font-family:'Archivo Black',sans-serif}
+@keyframes bob{50%{transform:translateY(-10px) rotate(8deg)}}
+.status{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-family:'Space Mono',monospace;font-size:12px;font-weight:700}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#18c35a;border:2px solid #0d0d0d;margin-right:6px;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(1.35)}}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;overflow:hidden}
+.stat{padding:18px 20px;border-right:3px solid var(--ink)}
+.stat:last-child{border-right:0}
+.stat small{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.stat div{font-family:'Archivo Black',sans-serif;font-size:clamp(18px,2.2vw,26px);line-height:1.15;margin-top:4px}
+
+/* MARQUEE */
+.mwrap{overflow:hidden;padding:14px 0 18px}
+.marquee{background:#0d0d0d;color:#c6ff3d;border-block:3px solid var(--ink);overflow:hidden;width:104%;margin-left:-2%}
+.marquee.m1{margin-top:30px;transform:rotate(-1.5deg)}
+.marquee.m2{transform:rotate(1.5deg);background:var(--pink);color:#0d0d0d;margin-top:-10px}
+.marquee .track{display:flex;width:max-content;animation:scroll 30s linear infinite;padding:12px 0}
+.marquee.m2 .track{animation-direction:reverse}
+.marquee span{font-family:'Archivo Black',sans-serif;font-size:22px;text-transform:uppercase;white-space:nowrap;padding:0 20px}
+.marquee.m1 span i{font-style:normal;color:#ff5fa2}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:84px 0 0}
+.sec-head{display:flex;align-items:flex-end;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.sec-num{font-family:'Archivo Black',sans-serif;font-size:18px;border:3px solid var(--ink);border-radius:10px;padding:4px 10px;background:var(--lime);color:#0d0d0d;box-shadow:var(--shadow-sm)}
+h2{font-family:'Archivo Black',sans-serif;font-size:clamp(36px,6vw,64px);line-height:.95;text-transform:uppercase;letter-spacing:-.01em}
+.sec-sub{font-family:'Space Mono',monospace;font-size:13px;color:var(--muted);width:100%}
+.scrawl{font-family:'Caveat',cursive;font-size:26px;color:var(--pink);transform:rotate(-4deg);display:inline-block}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:24px}
+.about-text{padding:32px}
+.about-text .big{font-family:'Archivo Black',sans-serif;font-size:clamp(22px,2.8vw,32px);line-height:1.15;margin-bottom:18px}
+.about-text .big mark{background:var(--lime);color:#0d0d0d;padding:0 6px;border-radius:4px}
+.about-text p{font-size:17px;margin-bottom:14px}
+.about-side{display:flex;flex-direction:column;gap:16px}
+.mini{padding:18px 20px}
+.mini h4{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;color:var(--muted)}
+.mini p{font-weight:700;font-size:18px}
+.quote{padding:22px;background:#0d0d0d!important;color:#f4f4ec}
+.quote p{font-family:'Archivo Black',sans-serif;font-size:20px;line-height:1.2}
+.quote span{display:block;margin-top:10px;font-family:'Space Mono',monospace;font-size:12px;color:#c6ff3d}
+
+/* PLAYER CARD + SKILLS */
+.pc-wrap{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:start}
+.player-card{width:320px;max-width:100%;aspect-ratio:3/4.3;border:3px solid var(--ink);border-radius:24px 24px 60px 60px;background:linear-gradient(160deg,#fff2a8 0%,#edbb00 45%,#b88a00 100%);color:#0d0d0d;box-shadow:10px 10px 0 var(--ink);padding:22px;overflow:hidden;transition:transform .15s ease-out;position:sticky;top:110px}
+.player-card::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.6) 45%,transparent 60%);transform:translateX(-100%);animation:shine 4s ease-in-out infinite;pointer-events:none}
+@keyframes shine{60%,100%{transform:translateX(100%)}}
+.pc-ovr{font-family:'Archivo Black',sans-serif;font-size:54px;line-height:.9}
+.pc-pos{font-family:'Archivo Black',sans-serif;font-size:18px;margin:4px 0 8px}
+.pc-side{display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-size:20px}
+.pc-img{position:absolute;right:14px;top:18px;width:58%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:3px solid #0d0d0d;background:#0d0d0d}
+.pc-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.05)}
+.pc-name{position:absolute;left:0;right:0;top:57%;text-align:center;font-family:'Archivo Black',sans-serif;font-size:26px;letter-spacing:.04em;border-block:3px solid #0d0d0d;background:rgba(255,255,255,.35);padding:4px 0}
+.pc-stats{position:absolute;left:24px;right:24px;bottom:30px;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;font-family:'Space Mono',monospace;font-weight:700;font-size:15px}
+.pc-stats b{font-family:'Archivo Black',sans-serif;font-size:18px;margin-right:6px}
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sk{padding:20px;transition:transform .15s,box-shadow .15s}
+.sk:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.sk-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.sk h3{font-family:'Archivo Black',sans-serif;font-size:20px;line-height:1.1;display:flex;align-items:center;gap:10px}
+.sk h3 .e{font-size:24px}
+.sk .lvl{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;border:2px solid var(--ink);border-radius:6px;padding:2px 6px;white-space:nowrap}
+.sk .tags{display:flex;flex-wrap:wrap;gap:6px}
+.meter{height:12px;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:var(--bg);margin-bottom:12px}
+.meter i{display:block;height:100%;width:0;background:var(--c,var(--lime));border-right:2px solid var(--ink);transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.devices{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:22px;padding:16px 20px}
+.devices b{font-family:'Archivo Black',sans-serif;font-size:18px;margin-right:6px}
+.dev{display:flex;align-items:center;gap:8px;border:2px solid var(--ink);border-radius:10px;padding:6px 12px;font-weight:700;background:var(--bg)}
+.dev span{font-size:20px}
+
+/* SERVICES */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.svc{padding:24px;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.svc:hover{transform:rotate(-1deg) translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.svc .n{position:absolute;right:14px;top:8px;font-family:'Archivo Black',sans-serif;font-size:48px;opacity:.12}
+.svc .ic{font-size:34px}
+.svc h4{font-family:'Archivo Black',sans-serif;font-size:22px;margin:10px 0 6px;line-height:1.1}
+.svc p{font-size:15px}
+
+/* AI LAB */
+.ailab{display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.ai-left{padding:26px;border-right:3px solid var(--ink);display:flex;flex-direction:column;gap:16px;background:#0d0d0d;color:#f4f4ec}
+.ai-left .lbl{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;color:#c6ff3d}
+.prompt{font-family:'Space Mono',monospace;font-size:16px;min-height:110px;background:#1c1c1c;border:2px solid #3a3a3a;border-radius:10px;padding:14px;line-height:1.5}
+.prompt .caret{display:inline-block;vertical-align:-3px;margin-left:2px}
+.gen{display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:13px}
+.gen .pb{flex:1;height:10px;border:2px solid #f4f4ec;border-radius:99px;overflow:hidden}
+.gen .pb i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c6ff3d,#ff5fa2,#4d7cff)}
+.ai-types{display:flex;gap:6px;flex-wrap:wrap}
+.ai-types .tag{background:transparent;color:#f4f4ec;border-color:#f4f4ec;opacity:.45;transition:.2s}
+.ai-types .tag.on{opacity:1;background:#c6ff3d;color:#0d0d0d;border-color:#c6ff3d}
+.ai-right{position:relative;min-height:340px;overflow:hidden}
+.out{position:absolute;inset:26px;border:3px solid var(--ink);border-radius:12px;display:grid;place-items:center;text-align:center;padding:20px;opacity:0;transform:scale(.92);transition:opacity .5s,transform .5s,filter .8s;filter:blur(14px);overflow:hidden}
+.out.on{opacity:1;transform:none;filter:blur(0)}
+.out b{font-family:'Archivo Black',sans-serif;font-size:clamp(26px,3.6vw,44px);line-height:.95;text-transform:uppercase;position:relative;z-index:2}
+.out small{position:absolute;left:12px;top:12px;z-index:2;font-family:'Space Mono',monospace;font-weight:700;font-size:11px;background:#0d0d0d;color:#c6ff3d;padding:3px 8px;border-radius:5px}
+.out .scan{position:absolute;left:0;right:0;height:40%;background:linear-gradient(transparent,rgba(255,255,255,.35),transparent);animation:scan 2.4s linear infinite}
+@keyframes scan{from{top:-40%}to{top:100%}}
+
+/* EDIT BAY */
+.editbay{padding:0;overflow:hidden}
+.eb-head{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:3px solid var(--ink);background:#0d0d0d;color:#f4f4ec;font-family:'Space Mono',monospace;font-size:12px}
+.eb-head i{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px solid #f4f4ec}
+.eb-body{display:grid;grid-template-columns:1.3fr 1fr}
+.viewer{position:relative;aspect-ratio:16/9;background:#0d0d0d;border-right:3px solid var(--ink);overflow:hidden}
+.viewer .scene{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .35s}
+.viewer .scene.on{opacity:1}
+.viewer .scene b{font-family:'Archivo Black',sans-serif;font-size:clamp(28px,5vw,56px);color:#0d0d0d;text-transform:uppercase;text-align:center;line-height:.95;padding:0 20px}
+.viewer .rec{position:absolute;top:12px;left:12px;font-family:'Space Mono',monospace;font-size:12px;color:#fff;background:#e0263b;padding:2px 8px;border-radius:4px;z-index:2}
+.viewer .tc{position:absolute;bottom:12px;right:12px;font-family:'Space Mono',monospace;font-size:13px;color:#fff;background:rgba(0,0,0,.6);padding:2px 8px;border-radius:4px;z-index:2}
+.eb-info{padding:22px}
+.eb-info h3{font-family:'Archivo Black',sans-serif;font-size:26px;line-height:1.1;margin-bottom:10px}
+.eb-info p{margin-bottom:14px}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tl{border-top:3px solid var(--ink);padding:14px;background:var(--paper)}
+.tl-wrap{position:relative}
+.tl-row{display:flex;gap:4px;margin-bottom:6px;height:26px}
+.tl-row label{width:34px;flex:none;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;display:grid;place-items:center;border:2px solid var(--ink);border-radius:5px}
+.clip{border:2px solid #0d0d0d;border-radius:5px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;padding:0 6px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;color:#0d0d0d}
+.playhead{position:absolute;top:0;bottom:0;width:3px;background:#e0263b;left:40px;z-index:3;pointer-events:none}
+.playhead::before{content:"";position:absolute;top:-6px;left:-5px;border:6px solid transparent;border-top-color:#e0263b}
+.shoot-note{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;margin-top:20px;padding:20px 24px}
+.shoot-note .big{font-size:44px}
+.shoot-note h4{font-family:'Archivo Black',sans-serif;font-size:22px;line-height:1.1}
+
+/* WRITING */
+.writing{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+.paper{padding:32px;color:#0d0d0d;background:#fffdf3 repeating-linear-gradient(transparent 0 31px,#d7e3ff 31px 32px)!important;position:relative}
+.paper::before{content:"";position:absolute;left:52px;top:0;bottom:0;width:2px;background:#ff9bb8}
+.paper .inner{padding-left:36px}
+.paper h3{font-family:'Archivo Black',sans-serif;font-size:28px;line-height:1.1;margin-bottom:10px}
+.paper .hand{font-family:'Caveat',cursive;font-size:30px;line-height:32px;color:#1d3fae;min-height:130px}
+.wcards{display:flex;flex-direction:column;gap:14px}
+.wc{padding:18px 20px;display:flex;gap:16px;align-items:flex-start}
+.wc .ic{font-size:30px}
+.wc h4{font-family:'Archivo Black',sans-serif;font-size:19px}
+
+/* EYE TEST */
+.eye{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;align-items:stretch}
+.eye-info{padding:28px;background:var(--violet)!important;color:#fff}
+.eye-info h3{font-family:'Archivo Black',sans-serif;font-size:clamp(28px,4vw,44px);line-height:.95;text-transform:uppercase}
+.eye-info p{margin:14px 0 18px;font-size:17px}
+.eye-score{display:flex;gap:10px;flex-wrap:wrap}
+.eye-score span{font-family:'Space Mono',monospace;font-weight:700;background:#0d0d0d;color:#c6ff3d;border:3px solid #0d0d0d;border-radius:10px;padding:8px 12px}
+.eye-board{padding:16px;display:grid;gap:6px;aspect-ratio:1;max-height:520px;width:100%;justify-self:center}
+.eye-board button{border:2px solid var(--ink);border-radius:8px;cursor:pointer;transition:transform .1s}
+.eye-board button:hover{transform:scale(.94)}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+
+/* CAREER */
+.timeline{position:relative;display:flex;flex-direction:column;gap:22px;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:10px;top:6px;bottom:6px;width:4px;background:var(--ink);border-radius:4px}
+.job{position:relative;padding:24px 26px}
+.job::before{content:"";position:absolute;left:-33px;top:28px;width:20px;height:20px;border-radius:50%;border:3px solid var(--ink);background:var(--paper)}
+.job.now::before{background:#c6ff3d;box-shadow:0 0 0 5px rgba(198,255,61,.45)}
+.job-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.job h3{font-family:'Archivo Black',sans-serif;font-size:clamp(20px,2.6vw,28px);line-height:1.1}
+.job .org{font-weight:700;margin-top:4px}
+.job .when{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;border:2px solid var(--ink);border-radius:8px;padding:4px 10px;white-space:nowrap}
+.job ul{margin:14px 0 0 18px}
+.job li{margin-bottom:6px}
+.job .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.edu{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.edu .box{padding:24px}
+.edu h3{font-family:'Archivo Black',sans-serif;font-size:24px;line-height:1.1;margin:10px 0 4px}
+.edu .grad{display:flex;align-items:center;gap:10px;margin-top:14px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700}
+
+/* FOOTBALL */
+.fb-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:24px}
+.barca{position:relative;overflow:hidden;color:#fff;padding:32px;background:repeating-linear-gradient(90deg,var(--barca-b) 0 56px,var(--barca-r) 56px 112px)!important}
+.barca::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 20%,rgba(0,0,0,.6))}
+.barca > *{position:relative;z-index:2}
+.barca .motto{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.2em;background:var(--gold);color:#0d0d0d;display:inline-block;padding:4px 10px;border:2px solid #0d0d0d;border-radius:6px;font-weight:700}
+.barca h3{font-family:'Archivo Black',sans-serif;font-size:clamp(44px,7vw,84px);line-height:.88;text-transform:uppercase;margin:16px 0;text-shadow:5px 5px 0 #0d0d0d}
+.barca p{font-size:17px;max-width:460px;font-weight:500;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.barca .chant{margin-top:18px;font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--gold)}
+.messi{padding:0;overflow:hidden;display:flex;flex-direction:column;background:#0d0d0d!important;color:#f4f4ec}
+.messi .ten{flex:1;display:grid;place-items:center;position:relative;min-height:260px;background:radial-gradient(circle at 50% 60%,#1f3f8f,#0d0d0d 70%)}
+.messi .ten b{font-family:'Archivo Black',sans-serif;font-size:200px;line-height:1;color:transparent;-webkit-text-stroke:3px var(--gold);position:relative}
+.messi .ten .goat{position:absolute;right:18px;top:16px;font-size:44px;animation:bob 3s infinite}
+.messi .ten .stars{position:absolute;left:18px;top:18px;font-size:20px;color:var(--gold);letter-spacing:4px}
+.messi .cap{padding:20px 22px;border-top:3px solid var(--ink)}
+.messi h4{font-family:'Archivo Black',sans-serif;font-size:26px;line-height:1.05}
+.messi .cap p{color:#c9c9bd;margin-top:6px}
+.leagues{margin-top:24px;padding:20px 22px}
+.leagues .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.leagues .tag{font-size:12px;padding:6px 12px}
+.fb-bottom{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.pitch{position:relative;overflow:hidden;background:#1f8a3b!important;color:#fff;padding:30px}
+.pitch::before{content:"";position:absolute;inset:14px;border:3px solid rgba(255,255,255,.5);border-radius:6px;pointer-events:none}
+.pitch::after{content:"";position:absolute;left:50%;top:50%;width:150px;height:150px;border:3px solid rgba(255,255,255,.5);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.pitch > *{position:relative;z-index:2}
+.pitch h4{font-family:'Archivo Black',sans-serif;font-size:26px;line-height:1.05}
+.keepy{margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.kball{font-size:56px;cursor:pointer;user-select:none;display:inline-block;filter:drop-shadow(3px 3px 0 #0d0d0d)}
+.kball.up{animation:kick .5s cubic-bezier(.2,.9,.3,1)}
+@keyframes kick{0%{transform:translateY(0) rotate(0)}45%{transform:translateY(-70px) rotate(200deg)}100%{transform:translateY(0) rotate(360deg)}}
+.kcount{font-family:'Space Mono',monospace;font-weight:700;background:#0d0d0d;color:#c6ff3d;border:3px solid #fff;border-radius:10px;padding:8px 12px}
+.culture{padding:26px}
+.culture h4{font-family:'Archivo Black',sans-serif;font-size:26px;line-height:1.05;margin-bottom:12px}
+.culture ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.culture li{display:flex;gap:12px;align-items:center;font-weight:700;border-bottom:2px dashed var(--muted);padding-bottom:10px}
+.culture li:last-child{border:0;padding:0}
+.culture li span{font-size:22px}
+
+/* SQUAD */
+.squad-pitch{padding:28px;background:#11331c!important;color:#fff;position:relative;overflow:hidden}
+.squad-pitch::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 80px,transparent 80px 160px)}
+.squad-head{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.squad-head h3{font-family:'Archivo Black',sans-serif;font-size:clamp(30px,4.5vw,50px);line-height:.95;text-transform:uppercase}
+.squad-head p{font-family:'Space Mono',monospace;font-size:13px;color:#c6ff3d}
+.squad{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.mate{background:#fffdf3;color:#0d0d0d;border:3px solid #0d0d0d;border-radius:18px 18px 40px 40px;box-shadow:6px 6px 0 #0d0d0d;padding:18px 16px 22px;text-align:center;position:relative;transition:transform .2s}
+.mate:hover{transform:translateY(-8px) rotate(-2deg)}
+.mate .num{position:absolute;left:12px;top:10px;font-family:'Archivo Black',sans-serif;font-size:28px}
+.mate .arm{position:absolute;right:10px;top:12px;background:var(--gold);color:#0d0d0d;border:2px solid #0d0d0d;border-radius:6px;font-family:'Archivo Black',sans-serif;font-size:13px;padding:0 6px}
+.mate .av{width:96px;height:96px;margin:14px auto 12px;border-radius:50%;border:3px solid #0d0d0d;display:grid;place-items:center;font-family:'Archivo Black',sans-serif;font-size:38px;color:#0d0d0d;overflow:hidden}
+.mate .av img{width:100%;height:100%;object-fit:cover;transform:scale(1.05)}
+.mate h4{font-family:'Archivo Black',sans-serif;font-size:22px;text-transform:uppercase}
+.mate .role{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;margin-top:4px;color:#4a4a4a}
+.squad-foot{position:relative;margin-top:22px;font-family:'Caveat',cursive;font-size:30px;color:#c6ff3d;text-align:center}
+
+/* CONTACT */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.contact-l{padding:32px;background:var(--pink)!important;color:#0d0d0d}
+.contact-l h3{font-family:'Archivo Black',sans-serif;font-size:clamp(34px,5vw,56px);line-height:.95;text-transform:uppercase}
+.contact-l p{margin:16px 0 22px;font-size:17px;font-weight:500}
+.clinks{display:flex;flex-direction:column;gap:10px}
+.clinks a{display:flex;align-items:center;gap:12px;text-decoration:none;background:#fffdf3;color:#0d0d0d;border:3px solid #0d0d0d;border-radius:10px;padding:10px 14px;font-weight:700;box-shadow:3px 3px 0 #0d0d0d;transition:transform .12s;overflow-wrap:anywhere}
+.clinks a:hover{transform:translate(-2px,-2px)}
+.clinks a span{width:30px;height:30px;flex:none;display:grid;place-items:center;border:2px solid #0d0d0d;border-radius:6px;background:#c6ff3d;font-family:'Space Mono',monospace;font-size:12px}
+form.box{padding:28px;display:flex;flex-direction:column;gap:14px}
+form label{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+form input,form textarea,form select{width:100%;font:inherit;font-size:16px;border:3px solid var(--ink);border-radius:10px;padding:12px;background:var(--bg);color:var(--ink);margin-top:6px;outline:none}
+form input:focus,form textarea:focus,form select:focus{box-shadow:var(--shadow-sm);background:var(--paper)}
+form textarea{min-height:120px;resize:vertical}
+
+footer{margin:84px 0 0;border-top:3px solid var(--ink);background:#0d0d0d;color:#f4f4ec}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding-top:22px;padding-bottom:22px;font-family:'Space Mono',monospace;font-size:13px}
+footer .big{font-family:'Archivo Black',sans-serif;font-size:clamp(44px,12.5vw,165px);line-height:.85;color:#c6ff3d;text-transform:uppercase;padding:28px 10px 0;overflow:hidden;white-space:nowrap;text-align:center;letter-spacing:-.02em}
+
+
+.player-card.rv.in{transform:none}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,160%);background:#0d0d0d;color:#c6ff3d;border:3px solid #c6ff3d;border-radius:12px;padding:12px 18px;font-family:'Space Mono',monospace;font-weight:700;z-index:160;transition:transform .3s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+.photo-frame{overflow:visible;transform-style:preserve-3d;background:transparent}
+
+
+/* ASTROSHRINE FEATURED ROLE */
+.job.feat{background:#12204A!important;color:#fff8e7}
+.job.feat .org{color:#E0A62B}
+.job.feat .when{border-color:#E0A62B;color:#E0A62B}
+.as-head{display:flex;gap:14px;align-items:center}
+.as-logo{width:58px;height:58px;flex:none;display:grid;place-items:center;font-size:32px;color:#12204A;background:#E0A62B;border:3px solid #0d0d0d;border-radius:14px;box-shadow:3px 3px 0 #0d0d0d}
+.as-intro{margin-top:16px;font-size:16px;max-width:760px;opacity:.95}
+.as-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.as-stats div{border:2px solid rgba(224,166,43,.55);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.04)}
+.as-stats b{display:block;font-family:'Archivo Black',sans-serif;font-size:26px;line-height:1.1;color:#E0A62B}
+.as-stats small{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.as-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 26px;margin-top:20px;padding-top:18px;border-top:2px dashed rgba(224,166,43,.4)}
+.as-grid h5{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E0A62B;margin-bottom:4px}
+.as-grid p{font-size:15px;opacity:.92}
+.as-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.as-links a{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-decoration:none;color:#12204A;background:#E0A62B;border:2px solid #0d0d0d;border-radius:8px;padding:6px 10px;box-shadow:2px 2px 0 #0d0d0d;transition:transform .12s}
+.as-links a:hover{transform:translate(-2px,-2px)}
+@media (max-width:640px){.as-stats{grid-template-columns:1fr 1fr}.as-grid{grid-template-columns:1fr}.as-logo{width:48px;height:48px;font-size:26px}}
+
+/* RESPONSIVE */
+@media (max-width:1040px){
+  .links a{padding:5px 7px;font-size:11px}
+}
+@media (max-width:920px){
+  .hero,.about,.contact,.eb-body,.ailab,.writing,.eye,.fb-grid,.fb-bottom{grid-template-columns:1fr}
+  .pc-wrap{grid-template-columns:1fr;justify-items:center}
+  .player-card{position:relative;top:0}
+  .skill-grid{width:100%}
+  .viewer{border-right:0;border-bottom:3px solid var(--ink)}
+  .ai-left{border-right:0;border-bottom:3px solid var(--ink)}
+  .services{grid-template-columns:1fr 1fr}
+  .squad{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:3px solid var(--ink)}
+}
+@media (max-width:900px){
+  .links{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;flex-direction:column;padding:12px;background:var(--paper);border:3px solid var(--ink);border-radius:14px;box-shadow:var(--shadow)}
+  .links.open{display:flex}
+  .links a{font-size:14px;padding:10px 12px}
+  .menu-btn{display:grid;place-items:center}
+  nav .bar{position:relative}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .hero-main{padding:26px 20px}
+  h1.name .l2{-webkit-text-stroke:2px var(--ink);text-shadow:4px 4px 0 var(--ink)}
+  .edu,.skill-grid,.services{grid-template-columns:1fr}
+  .about-text,.contact-l,form.box,.paper,.barca,.eye-info{padding:22px}
+  .paper .inner{padding-left:26px}
+  .paper::before{left:36px}
+  .timeline{padding-left:26px}
+  .timeline::before{left:6px}
+  .job{padding:20px}
+  .job::before{left:-29px}
+  .typer{font-size:13px}
+  .orb{width:50px;height:50px;font-size:24px}
+  .messi .ten b{font-size:150px}
+  .squad{gap:12px}
+  .mate .av{width:72px;height:72px;font-size:28px}
+  .mate h4{font-size:17px}
+  .shoot-note{grid-template-columns:1fr}
+  .ai-right{min-height:280px}
+}
+</style>
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<div id="loader" aria-hidden="true">
+  <div class="ln" id="loadLine">&gt; loading creativity...</div>
+  <div class="pct"><span id="pct">0</span>%</div>
+  <div class="bar"><i id="lbar"></i></div>
+</div>
+<div class="cursor" id="cursor"></div>
+<div class="progress" id="progress"></div>
+
+<div class="wrap">
+<nav>
+  <div class="bar box">
+    <a href="#top" class="logo"><span>RA</span>rajveer.</a>
+    <div class="links" id="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#ailab">AI Lab</a>
+      <a href="#edits">Edits</a>
+      <a href="#career">Career</a>
+      <a href="#football">Football</a>
+      <a href="#squad">Squad</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="theme" id="theme" aria-label="Toggle dark mode">☾</button>
+      <button class="theme menu-btn" id="menu" aria-label="Open menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-main box rv">
+    <div class="floaters" aria-hidden="true"><span style="left:6%;top:12%;--d:8s">🎬</span><span style="left:78%;top:8%;--d:11s;--dl:1s">🤖</span><span style="left:88%;top:62%;--d:9s;--dl:2s">⚽</span><span style="left:40%;top:80%;--d:12s;--dl:.5s">🎨</span><span style="left:60%;top:30%;--d:10s;--dl:3s">✍️</span><span style="left:20%;top:60%;--d:13s;--dl:1.5s">💻</span></div>
+    <div class="stickers"><span class="sticker">BBA GRAD '26 🎓</span><span class="sticker">AI CREATOR ✦</span><span class="sticker">VISCA BARÇA</span></div>
+    <div class="kicker">Edits · AI · Web · Design · Words</div>
+    <h1 class="name" id="nm"><span class="l1">Rajveer</span><span class="l2">Airy</span></h1>
+    <div class="roles"><span class="tag lime">AI Content Creator</span><span class="tag pink">Video Editor</span><span class="tag blue">Web Designer</span><span class="tag orange">Writer</span></div>
+    <div class="typer"><span>I &gt;</span> <b id="typed"></b><i class="caret"></i></div>
+    <div class="hero-cta">
+      <a href="#work" class="btn dark">See What I Do ↘</a>
+      <a href="#contact" class="btn lime">Let's Create ✦</a>
+    </div>
+  </div>
+  <div class="hero-photo box rv">
+    <div class="photo-wrap"><div class="photo-frame tilt" data-tilt="18"><img src="rajveer.jpg" alt="Portrait of Rajveer Airy"><span class="glare"></span></div>
+    <div class="orbit">
+      <div class="orb" data-toast="GOLAZO! ⚽🔥">⚽</div>
+      <div class="orb" data-toast="Rendering… just kidding, it's already done 🎬">🎬</div>
+      <div class="orb" data-toast="Messi > everyone. Not up for debate 🐐">#10</div>
+    </div></div>
+    <div class="status">
+      <span><i class="dot"></i>@ ASTROSHRINE · OPEN FOR PROJECTS</span>
+      <span>📍 RAIPUR, CG</span>
+    </div>
+  </div>
+</header>
+
+<div class="stats box rv">
+  <div class="stat"><small>Degree</small><div>BBA · Class of '26</div></div>
+  <div class="stat"><small>Creates on</small><div>PC + Mobile 💻📱</div></div>
+  <div class="stat"><small>Superpower</small><div>Eye for Detail 👁️</div></div>
+  <div class="stat"><small>Club</small><div>FC Barcelona 🔵🔴</div></div>
+</div>
+</div>
+
+<div class="mwrap"><div class="marquee m1" aria-hidden="true"><div class="track" id="marq1"></div></div>
+<div class="marquee m2" aria-hidden="true"><div class="track" id="marq2"></div></div></div>
+
+<main class="wrap">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-head rv"><span class="sec-num">01</span><h2>About Me</h2><span class="scrawl">(I love all of it)</span></div>
+  <div class="about">
+    <div class="about-text box rv">
+      <div class="big">I don't pick one lane. <mark>I create in all of them.</mark></div>
+      <p>I'm Rajveer, a BBA graduate from Raipur who turned curiosity into a full creative toolkit. I make AI videos and content, edit on PC and mobile, design visuals, build websites, and write articles and stories. Since March 2026 I've been part of the core team at <b>AstroShrine</b>, building its app, websites and content.</p>
+      <p>I love editing for other people and I shoot my own footage, because when I'm behind the camera the story is mine from the first frame. My real edge is the little things: the frame that's one beat late, the colour that's slightly off, the kerning nobody else noticed. I notice. Always.</p>
+      <p>Before all this I was running operations at a gas agency at 19 and editing at a local studio, so I know how business runs <i>and</i> how content hits. Off the clock it's football, Barça and my squad.</p>
+    </div>
+    <div class="about-side">
+      <div class="mini box rv"><h4>Based in</h4><p>Raipur, Chhattisgarh <i class="flag" aria-label="India"></i></p></div>
+      <div class="mini box rv lime"><h4 style="color:#0d0d0d">Speaks</h4><p>English · Hindi</p></div>
+      <div class="mini box rv cube-box"><div><h4>Creative mode</h4><p>Always on. Every device.</p></div><div class="cube-scene"><div class="cube"><i>🎬</i><i>🤖</i><i>🎨</i><i>💻</i><i>✍️</i><i>⚽</i></div></div></div>
+      <div class="quote box rv"><p>"Every edit is a story. Every story deserves a great edit."</p><span>// the whole philosophy</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head rv"><span class="sec-num">02</span><h2>Player<br>Stats</h2><p class="sec-sub">// gold card. hover it. yes, I'm rated like a Ballon d'Or nominee.</p></div>
+  <div class="pc-wrap">
+    <div class="player-card" id="card">
+      <div class="pc-side">
+        <div class="pc-ovr">93</div>
+        <div class="pc-pos">CAM</div>
+        <i class="flag" aria-label="India"></i>
+        <span>🎬</span><span>🤖</span>
+      </div>
+      <div class="pc-img"><img src="rajveer.jpg" alt=""></div>
+      <div class="pc-name">AIRY</div>
+      <div class="pc-stats">
+        <div><b>95</b>EDT</div><div><b>92</b>AI</div>
+        <div><b>90</b>DSG</div><div><b>88</b>WEB</div>
+        <div><b>87</b>WRT</div><div><b>97</b>EYE</div>
+      </div>
+    </div>
+    <div>
+      <div class="skill-grid">
+        <div class="sk box rv tilt"><div class="sk-top"><h3><span class="e">🎬</span>Video Editing</h3><span class="lvl">ELITE</span></div><div class="meter"><i data-w="95" style="--c:var(--pink)"></i></div><div class="tags"><span class="tag pink">CapCut Pro</span><span class="tag">After Effects</span><span class="tag">Premiere Pro</span><span class="tag">Transitions</span><span class="tag">Color Grading</span><span class="tag">Sound Design</span><span class="tag">VFX</span></div></div>
+        <div class="sk box rv tilt"><div class="sk-top"><h3><span class="e">🤖</span>AI Creation</h3><span class="lvl">NEXT-GEN</span></div><div class="meter"><i data-w="92" style="--c:var(--lime)"></i></div><div class="tags"><span class="tag lime">AI Videos</span><span class="tag">Text-to-Video</span><span class="tag">AI Images</span><span class="tag">Prompt Engineering</span><span class="tag">AI Voiceovers</span><span class="tag">AI Content Strategy</span></div></div>
+        <div class="sk box rv tilt"><div class="sk-top"><h3><span class="e">🎨</span>Design</h3><span class="lvl">SHARP</span></div><div class="meter"><i data-w="90" style="--c:var(--orange)"></i></div><div class="tags"><span class="tag orange">Photoshop</span><span class="tag">Canva</span><span class="tag">Thumbnails</span><span class="tag">Posters</span><span class="tag">Social Creatives</span><span class="tag">Branding</span></div></div>
+        <div class="sk box rv tilt"><div class="sk-top"><h3><span class="e">💻</span>Web Design</h3><span class="lvl">BUILDER</span></div><div class="meter"><i data-w="88" style="--c:var(--blue)"></i></div><div class="tags"><span class="tag blue">Websites</span><span class="tag">Landing Pages</span><span class="tag">AI-Assisted Dev</span><span class="tag">Online Stores</span><span class="tag">Responsive UI</span></div></div>
+        <div class="sk box rv tilt"><div class="sk-top"><h3><span class="e">✍️</span>Writing</h3><span class="lvl">STORYTELLER</span></div><div class="meter"><i data-w="87" style="--c:var(--violet)"></i></div><div class="tags"><span class="tag violet">Articles</span><span class="tag">Short Stories</span><span class="tag">Reel Scripts</span><span class="tag">Captions & Copy</span></div></div>
+        <div class="sk box rv tilt"><div class="sk-top"><h3><span class="e">📹</span>Shooting</h3><span class="lvl">OWN SHOTS</span></div><div class="meter"><i data-w="89" style="--c:#18c35a"></i></div><div class="tags"><span class="tag" style="background:#18c35a;color:#0d0d0d">Self-Shot Content</span><span class="tag">Framing</span><span class="tag">B-Roll</span><span class="tag">Mobile Cinematography</span></div></div>
+        <div class="sk box rv tilt"><div class="sk-top"><h3><span class="e">👁️</span>Eye for Detail</h3><span class="lvl">GOAT</span></div><div class="meter"><i data-w="97" style="--c:var(--gold)"></i></div><div class="tags"><span class="tag" style="background:var(--gold);color:#0d0d0d">Pixel-Perfect</span><span class="tag">Frame Timing</span><span class="tag">Colour Accuracy</span><span class="tag">Quality Check</span></div></div>
+        <div class="sk box rv tilt"><div class="sk-top"><h3><span class="e">💼</span>Business</h3><span class="lvl">BBA</span></div><div class="meter"><i data-w="86" style="--c:#0d0d0d"></i></div><div class="tags"><span class="tag">Operations</span><span class="tag">Client Handling</span><span class="tag">Leadership</span><span class="tag">Teamwork</span><span class="tag">Time Management</span></div></div>
+      </div>
+      <div class="devices box rv">
+        <b>Creates on every device →</b>
+        <span class="dev"><span>💻</span>PC</span>
+        <span class="dev"><span>📱</span>Mobile</span>
+        <span class="dev"><span>📲</span>Tablet</span>
+        <span class="dev"><span>⚡</span>Anywhere</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="work">
+  <div class="sec-head rv"><span class="sec-num">03</span><h2>What I<br>Do</h2><p class="sec-sub">// one person, full creative team energy</p></div>
+  <div class="services">
+    <div class="svc box rv tilt lime"><span class="n">01</span><div class="ic">🤖</div><h4>AI Videos & Content</h4><p>Cinematic AI videos, AI visuals, voiceovers and scroll-stopping content, built fast with the newest tools.</p></div>
+    <div class="svc box rv tilt"><span class="n">02</span><div class="ic">✂️</div><h4>Edits for You</h4><p>Reels, shorts, football edits, event highlights and brand videos. You send the footage, I make it hit.</p></div>
+    <div class="svc box rv tilt pink"><span class="n">03</span><div class="ic">🎥</div><h4>Shot & Cut by Me</h4><p>My own shoots from concept to camera to final export. Full creative control, zero compromise.</p></div>
+    <div class="svc box rv tilt"><span class="n">04</span><div class="ic">🌐</div><h4>Websites</h4><p>Clean, bold, mobile-first websites and landing pages for brands, creators and small businesses.</p></div>
+    <div class="svc box rv tilt blue"><span class="n">05</span><div class="ic">🎨</div><h4>Designs</h4><p>Posters, thumbnails, social posts and brand visuals in Photoshop and Canva. Details on point.</p></div>
+    <div class="svc box rv tilt"><span class="n">06</span><div class="ic">📝</div><h4>Articles & Stories</h4><p>Articles, short stories, scripts and captions. Words that people actually finish reading.</p></div>
+  </div>
+</section>
+
+<!-- AI LAB -->
+<section id="ailab">
+  <div class="sec-head rv"><span class="sec-num">04</span><h2>The AI<br>Lab 🤖</h2><p class="sec-sub">// prompt in, magic out. this is how my brain works on a normal day.</p></div>
+  <div class="ailab box rv">
+    <div class="ai-left">
+      <div class="lbl">// PROMPT</div>
+      <div class="prompt"><span id="aiPrompt"></span><i class="caret"></i></div>
+      <div class="ai-types" id="aiTypes"><span class="tag">AI Video</span><span class="tag">Script</span><span class="tag">Website</span><span class="tag">Design</span></div>
+      <div class="gen"><span id="aiState">IDLE</span><div class="pb"><i id="aiBar"></i></div><span id="aiPct">0%</span></div>
+    </div>
+    <div class="ai-right" id="aiOut">
+      <div class="out" style="background:linear-gradient(135deg,#0b1a3d,#1f3f8f 45%,#ff8a1f);color:#fff"><small>AI VIDEO · 4K</small><span class="scan"></span><b>Under the<br>lights.</b></div>
+      <div class="out" style="background:#fffdf3 repeating-linear-gradient(transparent 0 23px,#dde6ff 23px 24px);color:#0d0d0d"><small>SCRIPT · 15s</small><b style="font-size:clamp(18px,2.2vw,26px);text-transform:none;font-family:'Space Mono',monospace;line-height:1.35">HOOK: "Raipur's best<br>coffee is hiding<br>here ☕"<br>CUT → POUR SHOT</b></div>
+      <div class="out" style="background:#c6ff3d;color:#0d0d0d"><small>WEBSITE · LIVE</small><b>DROP 01<br><span style="font-size:.45em;background:#0d0d0d;color:#c6ff3d;padding:4px 12px;border-radius:8px;display:inline-block;margin-top:10px">SHOP NOW →</span></b></div>
+      <div class="out" style="background:linear-gradient(90deg,#004d98 50%,#a50044 50%);color:#edbb00"><small>POSTER · 4:5</small><b style="font-size:clamp(80px,10vw,130px);-webkit-text-stroke:3px #0d0d0d">10</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDIT BAY -->
+<section id="edits">
+  <div class="sec-head rv"><span class="sec-num">05</span><h2>The Edit<br>Bay 🎬</h2><p class="sec-sub">// raw footage in, scroll-stoppers out. PC or phone, doesn't matter.</p></div>
+  <div class="editbay box rv">
+    <div class="eb-head"><i></i><i></i><i></i>&nbsp; rajveer_final_FINAL_v7.capcut</div>
+    <div class="eb-body">
+      <div class="viewer" id="viewer">
+        <span class="rec">● REC</span>
+        <div class="scene on" style="background:#c6ff3d"><b>Hook them<br>in 2 sec</b></div>
+        <div class="scene" style="background:#ff5fa2"><b>Cut on<br>the beat</b></div>
+        <div class="scene" style="background:#4d7cff"><b style="color:#fff">Color that<br>pops</b></div>
+        <div class="scene" style="background:#ff8a1f"><b>Captions<br>that slap</b></div>
+        <div class="scene" style="background:#9b6bff"><b style="color:#fff">Velocity<br>edit ⚡</b></div>
+        <span class="tc" id="tc">00:00:00:00</span>
+      </div>
+      <div class="eb-info">
+        <h3>Editing is storytelling at 30 frames a second.</h3>
+        <p>CapCut is my playground and I know it inside out. After Effects handles the motion and VFX. I edit for creators, brands and friends, and I cut my own shoots. Pacing, sound and those tiny details are why people watch till the end.</p>
+        <div class="tools">
+          <span class="tag pink">CapCut (PC + Mobile)</span><span class="tag">After Effects</span><span class="tag lime">Premiere Pro</span><span class="tag">Photoshop</span><span class="tag">Canva</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl">
+      <div class="tl-wrap" id="tlwrap">
+        <div class="playhead" id="ph"></div>
+        <div class="tl-row"><label>FX</label><div class="clip" style="flex:1.2;background:#ffe36e">SHAKE</div><div class="clip" style="flex:.6;visibility:hidden"></div><div class="clip" style="flex:1.4;background:#ffe36e">GLOW + BLUR</div><div class="clip" style="flex:1;background:#ffe36e">FLASH</div></div>
+        <div class="tl-row"><label>V1</label><div class="clip" style="flex:1;background:#c6ff3d">A-ROLL</div><div class="clip" style="flex:1.3;background:#ff5fa2">B-ROLL</div><div class="clip" style="flex:.8;background:#4d7cff;color:#fff">SLOWMO</div><div class="clip" style="flex:1.2;background:#ff8a1f">OUTRO</div></div>
+        <div class="tl-row"><label>A1</label><div class="clip" style="flex:4.3;background:#9be7c4">♪ BEAT_DROP.wav ▁▂▃▅▇▅▃▂▁▂▃▅▇▅▃▂▁▂▃▅▇▅▃▂▁▂▃▅▇▅▃▂▁▂▃▅▇▅▃</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="shoot-note box rv">
+    <span class="big">🎥</span>
+    <div><h4>I shoot my own. Only my own.</h4><p>When I'm behind the camera I control every angle, every frame and every transition before the edit even starts. That's how the final cut feels planned rather than patched.</p></div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="sec-head rv"><span class="sec-num">06</span><h2>Writing<br>Desk ✍️</h2><p class="sec-sub">// because the best edits start as words</p></div>
+  <div class="writing">
+    <div class="paper box rv">
+      <div class="inner">
+        <h3>Articles & Stories</h3>
+        <div class="hand" id="hand"></div>
+      </div>
+    </div>
+    <div class="wcards">
+      <div class="wc box rv"><span class="ic">📰</span><div><h4>Articles</h4><p>Football, tech, AI, culture and creator life. Opinions with receipts.</p></div></div>
+      <div class="wc box rv lime"><span class="ic">📖</span><div><h4>Short Stories</h4><p>Fiction that feels like a movie in your head. Characters, twists, the lot.</p></div></div>
+      <div class="wc box rv"><span class="ic">🎙️</span><div><h4>Scripts & Captions</h4><p>Reel hooks, voiceover scripts and captions that make people stop and read.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EYE TEST -->
+<section id="eye">
+  <div class="sec-head rv"><span class="sec-num">07</span><h2>The Eye<br>Test 👁️</h2><p class="sec-sub">// I notice the little things. can you?</p></div>
+  <div class="eye">
+    <div class="eye-info box rv">
+      <h3>Spot the odd one out.</h3>
+      <p>One tile is a slightly different shade. Every level gets harder. This is basically my job: catching what everyone else misses.</p>
+      <div class="eye-score"><span>LEVEL <b id="eLvl">1</b></span><span>BEST <b id="eBest">0</b></span></div>
+    </div>
+    <div class="eye-board box rv" id="board"></div>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section id="career">
+  <div class="sec-head rv"><span class="sec-num">08</span><h2>Career &<br>Education</h2><p class="sec-sub">// the journey so far</p></div>
+  <div class="timeline">
+    <article class="job box now feat rv">
+      <div class="job-top">
+        <div class="as-head">
+          <div class="as-logo" aria-hidden="true">☀</div>
+          <div>
+            <span class="tag lime">● Current role</span>
+            <h3 style="margin-top:8px">AstroShrine</h3>
+            <div class="org">Core Team · Astroshrine Private Limited · Raipur</div>
+          </div>
+        </div>
+        <span class="when">Mar 2026 – Present</span>
+      </div>
+      <p class="as-intro">Part of the core team behind AstroShrine, an astrology and devotion platform that brings consultations, puja and gemstone guidance under one roof. I work across product, tech, design and content.</p>
+      <div class="as-stats">
+        <div><b>1</b><small>Live Play Store app</small></div>
+        <div><b>3</b><small>Websites</small></div>
+        <div><b>7+</b><small>AI astrology modules</small></div>
+        <div><b>2</b><small>Languages: Hindi · English</small></div>
+      </div>
+      <div class="as-grid">
+        <div><h5>📱 App & Product</h5><p>UI redesign of the AstroShrine app, full Hindi and English support, chat and call consultations, wallet and coupons.</p></div>
+        <div><h5>🤖 AI Modules</h5><p>Kundli, Palmistry, Numerology, Tarot, Vastu, Prashna and Muhurta modules for users and astrologers.</p></div>
+        <div><h5>🌐 Websites</h5><p>astroshrine.in, the Shri Mahakal Dham puja-booking site with online payments, and the Future For You articles portal.</p></div>
+        <div><h5>📋 Operations & Brand</h5><p>Company documentation, SMS and WhatsApp notifications, and content for the Future For You magazine.</p></div>
+      </div>
+      <div class="as-links">
+        <a href="https://astroshrine.in" target="_blank" rel="noopener">astroshrine.in ↗</a>
+        <a href="https://play.google.com/store/apps/details?id=com.astroshrine" target="_blank" rel="noopener">Play Store ↗</a>
+        <a href="https://shrimahakaldham.com" target="_blank" rel="noopener">shrimahakaldham.com ↗</a>
+        <a href="https://futureforyou.co" target="_blank" rel="noopener">futureforyou.co ↗</a>
+      </div>
+    </article>
+    <article class="job box rv">
+      <div class="job-top">
+        <div>
+          <h3>Freelance Creator: AI, Edits, Web & Design</h3>
+          <div class="org">Self-employed · Raipur / Remote</div>
+        </div>
+        <span class="when">Present</span>
+      </div>
+      <ul>
+        <li>Creating AI videos and AI-powered content for social media, brands and personal projects.</li>
+        <li>Editing for clients and my own shoots on CapCut and After Effects, across PC and mobile.</li>
+        <li>Designing websites, posters, thumbnails and social creatives in Photoshop and Canva.</li>
+        <li>Writing articles, short stories, scripts and captions.</li>
+      </ul>
+      <div class="chips"><span class="tag lime">AI Content</span><span class="tag">Video Editing</span><span class="tag">Web Design</span><span class="tag">Graphic Design</span><span class="tag">Writing</span></div>
+    </article>
+    <article class="job box rv">
+      <div class="job-top">
+        <div><h3>Manager</h3><div class="org">Swastik Enterprises Gas Agency · Raipur</div></div>
+        <span class="when">Jun 2023 – Oct 2023</span>
+      </div>
+      <ul>
+        <li>Handled daily operations, LPG orders and inventory.</li>
+        <li>Maintained digital and register-based business records.</li>
+        <li>Coordinated with distributors for timely supply and resolved customer queries.</li>
+      </ul>
+      <div class="chips"><span class="tag">Operations</span><span class="tag">Inventory</span><span class="tag">Vendor Mgmt</span><span class="tag">Customer Service</span></div>
+    </article>
+    <article class="job box rv">
+      <div class="job-top">
+        <div><h3>Video Editor</h3><div class="org">Local Studio · Raipur</div></div>
+        <span class="when">May 2023 – Aug 2023</span>
+      </div>
+      <ul>
+        <li>Edited client videos and photos professionally.</li>
+        <li>Helped build small online stores and websites.</li>
+      </ul>
+      <div class="chips"><span class="tag">Video</span><span class="tag">Photo</span><span class="tag">Web Stores</span></div>
+    </article>
+  </div>
+  <div class="edu">
+    <div class="box rv">
+      <span class="tag lime">Graduated · 2026</span>
+      <h3>Bachelor of Business Administration (BBA)</h3>
+      <div style="font-weight:700">Vivekanand Mahavidyalaya, Raipur</div>
+      <div class="mono" style="font-size:13px;color:var(--muted);margin-top:4px">2023 – 2026</div>
+      <div class="grad"><span style="font-size:26px">🎓</span> Management · Marketing · Finance</div>
+    </div>
+    <div class="box rv">
+      <span class="tag">School · 2023</span>
+      <h3>Class 12th, Commerce (CBSE)</h3>
+      <div style="font-weight:700">Swami Vivekanand Senior Secondary School</div>
+      <div class="mono" style="font-size:13px;color:var(--muted);margin-top:4px">Completed 2023</div>
+      <div class="grad"><span style="font-size:26px">📚</span> Accountancy · Business Studies · Economics</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTBALL -->
+<section id="football">
+  <div class="sec-head rv"><span class="sec-num">09</span><h2>Football<br>Is Life ⚽</h2><p class="sec-sub">// not a hobby. a personality trait.</p></div>
+  <div class="fb-grid">
+    <div class="barca box rv">
+      <span class="motto">MÉS QUE UN CLUB</span>
+      <h3>Culé<br>for life.</h3>
+      <p>FC Barcelona is my club. The tiki-taka, La Masia, the Camp Nou nights. Blaugrana runs in the blood, and every Clásico is personal.</p>
+      <div class="chant">VISCA EL BARÇA! 🔵🔴</div>
+    </div>
+    <div class="messi box rv">
+      <div class="ten"><span class="stars">★★★★★★★★</span><span class="goat">🐐</span><b>10</b></div>
+      <div class="cap"><h4>Lionel Messi.<br>The GOAT.</h4><p>Not up for debate. The reason I fell in love with the game.</p></div>
+    </div>
+  </div>
+  <div class="leagues box rv">
+    <b class="mono" style="font-size:12px;letter-spacing:.12em;color:var(--muted)">I WATCH IT ALL</b>
+    <div class="row">
+      <span class="tag" style="background:#ff4b44;color:#fff">LaLiga</span><span class="tag" style="background:#3d195b;color:#fff">Premier League</span><span class="tag" style="background:#0a2c6b;color:#fff">Champions League</span><span class="tag" style="background:#008fd7;color:#fff">Serie A</span><span class="tag" style="background:#d20515;color:#fff">Bundesliga</span><span class="tag" style="background:#dae025;color:#0d0d0d">Ligue 1</span><span class="tag" style="background:#ff6b00;color:#fff">ISL</span><span class="tag lime">World Cup</span><span class="tag">Copa América</span><span class="tag">Euros</span>
+    </div>
+  </div>
+  <div class="fb-bottom">
+    <div class="pitch box rv">
+      <h4>Keepy-up challenge</h4>
+      <div class="keepy">
+        <span class="kball" id="kball" role="button" tabindex="0" aria-label="Kick the ball">⚽</span>
+        <span class="kcount">KEEPY-UPS: <span id="kc">0</span> · BEST: <span id="kb">0</span></span>
+      </div>
+      <p class="mono" style="font-size:12px;margin-top:10px">↑ tap the ball. don't let it drop (you have 1.2s).</p>
+    </div>
+    <div class="culture box rv">
+      <h4>The culture 🏟️</h4>
+      <ul>
+        <li><span>👕</span>Jerseys, kits and retro shirts</li>
+        <li><span>🌙</span>Late-night UCL, no sleep, no regrets</li>
+        <li><span>🎬</span>Football edits: velocity, slowmo, goosebumps</li>
+        <li><span>🗣️</span>Match debates with the squad, every weekend</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SQUAD -->
+<section id="squad">
+  <div class="sec-head rv"><span class="sec-num">10</span><h2>The<br>Squad 🤝</h2><p class="sec-sub">// day ones. real ones. starting lineup, forever.</p></div>
+  <div class="squad-pitch box rv">
+    <div class="squad-head"><h3>Starting IV</h3><p>FORMATION: 1-1-1-1 (BROTHERHOOD)</p></div>
+    <div class="squad">
+      <div class="mate tilt"><span class="num">10</span><span class="arm">C</span><div class="av"><img src="rajveer.jpg" alt=""></div><h4>Rajveer</h4><div class="role">CAPTAIN · CREATOR</div></div>
+      <div class="mate tilt"><span class="num">7</span><div class="av" style="background:var(--pink)">R</div><h4>Rehan</h4><div class="role">DAY ONE</div></div>
+      <div class="mate tilt"><span class="num">8</span><div class="av" style="background:var(--lime)">P</div><h4>Piyush</h4><div class="role">RIDE OR DIE</div></div>
+      <div class="mate tilt"><span class="num">9</span><div class="av" style="background:var(--blue);color:#fff">V</div><h4>Vibhour</h4><div class="role">THE REAL ONE</div></div>
+    </div>
+    <div class="squad-foot">no subs. no transfers. just the gang. 💚</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-head rv"><span class="sec-num">11</span><h2>Let's<br>Create</h2></div>
+  <div class="contact">
+    <div class="contact-l box rv">
+      <h3>Got a project? Let's make it hit.</h3>
+      <p>AI video, an edit, a website, a design, an article, or a role on your team. Slide in and I'll reply fast.</p>
+      <div class="clinks" id="clinks"></div>
+    </div>
+    <form class="box rv" id="form">
+      <div class="mono" style="font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--muted)">OR DROP A MESSAGE</div>
+      <label>Name<input name="name" required placeholder="Your name"></label>
+      <label>Email<input name="email" type="email" required placeholder="you@email.com"></label>
+      <label>What do you need?<select name="type"><option>AI Video / Content</option><option>Video Edit</option><option>Website</option><option>Design</option><option>Writing</option><option>Job / Role</option><option>Just saying hi 👋</option></select></label>
+      <label>Message<textarea name="msg" required placeholder="Tell me the idea..."></textarea></label>
+      <button class="btn dark" type="submit" style="align-self:flex-start">Send It →</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="big">Rajveer Airy</div>
+  <div class="wrap">
+    <span>© <span id="yr"></span> RAJVEER AIRY · RAIPUR</span>
+    <span>Made with 🤖, 🎬 and 🔵🔴</span>
+    <a href="#top" style="text-decoration:none">BACK TO TOP ↑</a>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   ✏️ EDIT YOUR DETAILS HERE
+   ============================================================ */
+const CONFIG = {
+  contact: {
+    email: "airyrajveer4@gmail.com",           // ← your email
+    phone: "",                                // ← optional, e.g. "+91 98765 43210"
+    instagram: "careless_rajveer_",             // ← handle without @
+    linkedin: "linkedin.com/in/rajveer-airy-0a5295281"  // ← your LinkedIn URL
+  },
+  typer: ["create AI videos.", "edit on CapCut like it's cheating.", "build websites.", "design in Photoshop.", "write stories.", "notice everything.", "bleed blaugrana 🔵🔴."],
+  marquee1: ["AI Creator", "Video Editor", "Web Designer", "Writer", "BBA Graduate", "Detail Obsessed"],
+  marquee2: ["Visca Barça", "Messi #10", "CapCut", "After Effects", "Photoshop", "Canva", "The Squad"],
+  story: "The stadium lights flickered once, and in that half-second he saw the gap no one else did. One touch. One look. The whole city held its breath..."
+};
+/* ============================================================ */
+document.body.classList.add('loading');
+const $ = s => document.querySelector(s), $$ = s => document.querySelectorAll(s);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2200); }
+
+// loader
+(function(){
+  const lines=['> loading creativity...','> rendering edits...','> warming up AI...','> lacing boots...','> kick off ⚽'];
+  let p=0; const L=$('#loader');
+  const finish=()=>{L.classList.add('done');document.body.classList.remove('loading');setTimeout(()=>L.remove(),900)};
+  if(reduce){finish();return;}
+  const iv=setInterval(()=>{
+    p=Math.min(100,p+Math.ceil(Math.random()*9));
+    $('#pct').textContent=p; $('#lbar').style.width=p+'%';
+    $('#loadLine').textContent=lines[Math.min(lines.length-1,Math.floor(p/21))];
+    if(p>=100){clearInterval(iv);setTimeout(finish,250);}
+  },40);
+})();
+
+// hero name letters
+$$('#nm .l1, #nm .l2').forEach(el=>{ el.innerHTML=[...el.textContent].map((c,i)=>`<span class="ch" style="--i:${i+(el.classList.contains('l2')?7:0)}">${c}</span>`).join(''); });
+
+// contact links
+const c=CONFIG.contact, cl=[];
+if(c.email) cl.push(`<a href="mailto:${c.email}"><span>@</span>${c.email}</a>`);
+if(c.phone) cl.push(`<a href="tel:${c.phone.replace(/\s/g,'')}"><span>☏</span>${c.phone}</a>`);
+if(c.instagram) cl.push(`<a href="https://instagram.com/${c.instagram}" target="_blank" rel="noopener"><span>IG</span>@${c.instagram}</a>`);
+if(c.linkedin) cl.push(`<a href="https://${c.linkedin.replace(/^https?:\/\//,'')}" target="_blank" rel="noopener"><span>in</span>${c.linkedin.replace(/^https?:\/\//,'')}</a>`);
+$('#clinks').innerHTML=cl.join('');
+$('#form').addEventListener('submit',e=>{
+  e.preventDefault(); const f=new FormData(e.target);
+  const body=`${f.get('msg')}\n\n— ${f.get('name')} (${f.get('email')})`;
+  location.href=`mailto:${c.email}?subject=${encodeURIComponent(f.get('type')+' · from '+f.get('name'))}&body=${encodeURIComponent(body)}`;
+  toast('Opening your mail app ✉️');
+});
+
+// marquees
+const mk=(arr,sep)=>{const s=arr.map(t=>`<span>${t} <i>${sep}</i></span>`).join('');return s+s+s+s;};
+$('#marq1').innerHTML=mk(CONFIG.marquee1,'✦'); $('#marq2').innerHTML=mk(CONFIG.marquee2,'⚽');
+
+// typewriter
+(function(){
+  const el=$('#typed'); let w=0,i=0,del=false;
+  (function tick(){
+    const word=CONFIG.typer[w]; el.textContent=word.slice(0,i);
+    if(!del&&i<word.length)i++; else if(del&&i>0)i--;
+    else if(!del){del=true;return setTimeout(tick,1400);} else {del=false;w=(w+1)%CONFIG.typer.length;}
+    setTimeout(tick,del?30:70);
+  })();
+})();
+
+// handwriting story
+(function(){
+  const el=$('#hand'); let i=0, started=false;
+  new IntersectionObserver((es,o)=>{ if(es[0].isIntersecting&&!started){started=true;o.disconnect();
+    (function t(){ el.textContent=CONFIG.story.slice(0,++i); if(i<CONFIG.story.length) setTimeout(t,reduce?0:38); })(); } },{threshold:.4}).observe(el);
+})();
+
+// theme
+const root=document.documentElement;
+const isDark=()=>{const t=root.dataset.theme;return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;};
+const setIcon=()=>$('#theme').textContent=isDark()?'☀':'☾';
+try{const s=localStorage.getItem('rv-theme');if(s)root.dataset.theme=s;}catch(e){}
+setIcon();
+$('#theme').onclick=()=>{root.dataset.theme=isDark()?'light':'dark';try{localStorage.setItem('rv-theme',root.dataset.theme)}catch(e){}setIcon();};
+
+// menu
+$('#menu').onclick=()=>$('#links').classList.toggle('open');
+$$('#links a').forEach(a=>a.onclick=()=>$('#links').classList.remove('open'));
+
+// reveal + meters
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); e.target.querySelectorAll('.meter i').forEach(m=>m.style.width=m.dataset.w+'%'); io.unobserve(e.target);} }),{threshold:.1});
+$$('.rv').forEach(el=>io.observe(el));
+
+// scroll progress
+addEventListener('scroll',()=>{const h=document.documentElement;$('#progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';},{passive:true});
+
+// cursor
+(function(){
+  const cur=$('#cursor'); if(!matchMedia('(pointer:fine)').matches) return;
+  addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+  document.addEventListener('mouseover',e=>cur.classList.toggle('big',!!e.target.closest('a,button,.orb,.kball,.player-card,.mate')));
+})();
+
+// 3D tilt on cards + hero photo
+(function(){
+  if(!matchMedia('(pointer:fine)').matches||reduce) return;
+  $$('.tilt').forEach(el=>{
+    if(!el.querySelector('.glare')&&!el.classList.contains('photo-frame')){el.style.position=el.style.position||'relative';const g=document.createElement('span');g.className='glare';el.appendChild(g);}
+    const max=+(el.dataset.tilt||12);
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      el.classList.add('tilting');
+      el.style.setProperty('--gx',x*100+'%');el.style.setProperty('--gy',y*100+'%');
+      el.style.transform=`perspective(800px) rotateY(${(x-.5)*max*2}deg) rotateX(${(.5-y)*max*2}deg) translateZ(12px)`;
+    });
+    el.addEventListener('mouseleave',()=>{el.classList.remove('tilting');el.style.transform='';});
+  });
+})();
+
+// card tilt
+const card=$('#card');
+card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(800px) rotateY(${x*18}deg) rotateX(${-y*18}deg) scale(1.03)`;});
+card.addEventListener('mouseleave',()=>card.style.transform='');
+
+// orbs
+$$('.orb').forEach(o=>o.onclick=()=>toast(o.dataset.toast));
+
+// edit bay
+(function(){
+  const scenes=$$('#viewer .scene'), ph=$('#ph'), wrap=$('#tlwrap'), tc=$('#tc');
+  let f=0; const total=30*10;
+  setInterval(()=>{
+    f=(f+1)%total; const s=Math.floor(f/30), fr=f%30;
+    tc.textContent=`00:00:${String(s).padStart(2,'0')}:${String(fr).padStart(2,'0')}`;
+    const idx=Math.min(scenes.length-1,Math.floor(f/(total/scenes.length)));
+    scenes.forEach((sc,i)=>sc.classList.toggle('on',i===idx));
+    ph.style.left=(40+(wrap.clientWidth-40)*f/total)+'px';
+  },1000/30);
+})();
+
+// AI lab
+(function(){
+  const prompts=[
+    "cinematic slow-mo of a footballer under stadium lights, rain, 4k, anamorphic",
+    "15s reel script for a Raipur café, gen-z tone, hook in 2 seconds",
+    "landing page for a streetwear drop, bold neo-brutalist, mobile first",
+    "tribute poster: #10, blaugrana split, gold outline, 4:5"
+  ];
+  const outs=$$('#aiOut .out'), types=$$('#aiTypes .tag'), P=$('#aiPrompt'), bar=$('#aiBar'), st=$('#aiState'), pc=$('#aiPct');
+  let k=0;
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  async function run(){
+    while(true){
+      outs.forEach(o=>o.classList.remove('on')); types.forEach((t,i)=>t.classList.toggle('on',i===k));
+      bar.style.width='0'; pc.textContent='0%'; st.textContent='TYPING';
+      const txt=prompts[k];
+      for(let i=0;i<=txt.length;i++){P.textContent=txt.slice(0,i); await wait(reduce?0:28);}
+      st.textContent='GENERATING';
+      for(let p=0;p<=100;p+=4){bar.style.width=p+'%';pc.textContent=p+'%';await wait(reduce?0:35);}
+      st.textContent='DONE ✓'; outs[k].classList.add('on');
+      await wait(2600); k=(k+1)%prompts.length;
+    }
+  }
+  let go=false; new IntersectionObserver((es,o)=>{if(es[0].isIntersecting&&!go){go=true;o.disconnect();run();}},{threshold:.3}).observe($('#ailab'));
+})();
+
+// eye test
+(function(){
+  const board=$('#board'); let lvl=1, best=0;
+  try{best=+localStorage.getItem('rv-eye')||0;}catch(e){}
+  $('#eBest').textContent=best;
+  function build(){
+    const n=Math.min(8,lvl+2), h=Math.floor(Math.random()*360), l=55;
+    const diff=Math.max(3,22-lvl*1.6), odd=Math.floor(Math.random()*n*n);
+    board.style.gridTemplateColumns=`repeat(${n},1fr)`; board.innerHTML='';
+    for(let i=0;i<n*n;i++){const b=document.createElement('button');b.setAttribute('aria-label','tile');
+      b.style.background=`hsl(${h} 70% ${i===odd?l+diff:l}%)`;
+      b.onclick=()=>{ if(i===odd){ lvl++; if(lvl-1>best){best=lvl-1;$('#eBest').textContent=best;try{localStorage.setItem('rv-eye',best)}catch(e){}}
+          if(lvl%5===0) toast(`Level ${lvl}. Okay, you've got the eye 👁️🔥`); }
+        else { board.classList.remove('shake'); void board.offsetWidth; board.classList.add('shake'); toast(`Missed it at level ${lvl}. Rajveer would've seen it 😏`); lvl=1; }
+        $('#eLvl').textContent=lvl; build(); };
+      board.appendChild(b);}
+  }
+  build();
+})();
+
+// keepy-ups
+(function(){
+  const ball=$('#kball'); let n=0,best=0,timer;
+  try{best=+localStorage.getItem('rv-best')||0;}catch(e){}
+  $('#kb').textContent=best;
+  function kick(){
+    n++; $('#kc').textContent=n; ball.classList.remove('up'); void ball.offsetWidth; ball.classList.add('up');
+    clearTimeout(timer);
+    timer=setTimeout(()=>{ if(n>best){best=n;$('#kb').textContent=best;try{localStorage.setItem('rv-best',best)}catch(e){}toast(`New best: ${best} keepy-ups 🔥`);} else if(n>0) toast(`Dropped it at ${n}. Go again ⚽`); n=0;$('#kc').textContent=0; },1200);
+  }
+  ball.addEventListener('click',kick);
+  ball.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();kick();}});
+})();
+
+// easter egg: type "messi"
+(function(){let buf='';addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;buf=(buf+e.key.toLowerCase()).slice(-5);if(buf==='messi')toast('🐐 GOAT MODE ACTIVATED. Visca Barça! 🔵🔴');});})();
+
+$('#yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
